@@ -18,6 +18,18 @@ AppTheme({this.electusColor = 0});
 
 ThemeData getTheme() => ThemeData(
     colorSchemeSeed: colorum[electusColor],
+
+    appBarTheme: const AppBarTheme(
+    
+      centerTitle: false,
+      elevation:2,
+      titleTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+
   );
 
 

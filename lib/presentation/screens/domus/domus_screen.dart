@@ -1,4 +1,5 @@
 import  'package:flutter/material.dart';
+import 'package:flutter_app1master/config/config.dart';
 
 
  class DomusScreen extends StatelessWidget {
@@ -10,8 +11,57 @@ import  'package:flutter/material.dart';
       appBar: AppBar(
         title: Text('My App'),
       ),
+      body: _DomusView()
+      
 
     );
    
+  }
+}
+
+
+class _DomusView extends StatelessWidget {
+  
+  const _DomusView();
+
+   @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: appMenuItems.length,
+        itemBuilder: (context, index) {
+        final menuItem = appMenuItems[index];
+        return _PropriumListTile(menuItem: menuItem);
+          },
+      );
+  }
+}
+
+class _PropriumListTile extends StatelessWidget {
+  
+  final MenuItem menuItem;
+
+  const _PropriumListTile({
+    required this.menuItem,
+  });
+
+   @override
+  Widget build(BuildContext context) {
+
+ final colorum = Theme.of(context).colorScheme;
+    return ListTile(
+      title:Text(menuItem.titulus),
+      subtitle: Text(menuItem.subTitulus),
+      leading: Icon(
+        menuItem.icon,
+        color: colorum.primary,
+      ),
+      trailing: Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: colorum.primary,
+      ),
+      onTap: (){
+      },
+    );
+      
   }
 }
