@@ -1,6 +1,6 @@
 import  'package:flutter/material.dart';
 import 'package:flutter_app1master/config/config.dart';
-
+import 'package:go_router/go_router.dart';
 
  class DomusScreen extends StatelessWidget {
   const DomusScreen({super.key});
@@ -60,6 +60,7 @@ class _PropriumListTile extends StatelessWidget {
         color: colorum.primary,
       ),
       onTap: (){
+        context.push(menuItem.link);
       },
     );
       

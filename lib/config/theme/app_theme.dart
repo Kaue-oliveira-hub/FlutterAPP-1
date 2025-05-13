@@ -1,4 +1,5 @@
 import  'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const colorum = <Color>[
   Colors.greenAccent, // Dark Gray
@@ -19,18 +20,23 @@ AppTheme({this.electusColor = 0});
 ThemeData getTheme() => ThemeData(
     colorSchemeSeed: colorum[electusColor],
 
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
     
       centerTitle: false,
       elevation:2,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         color: Colors.black,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-    ),
-
-  );
+      ),
+     textTheme: TextTheme(
+    titleLarge: GoogleFonts.lato(),
+    titleMedium: GoogleFonts.lato(fontSize: 35),
+    bodyLarge: GoogleFonts.lato(fontSize: 20),
+    bodyMedium: GoogleFonts.russoOne(fontSize: 15),
+  ),
+);
 
 
 }
