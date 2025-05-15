@@ -39,12 +39,14 @@ Future<void> portamProximamPaginam() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('Videos Screen'),
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: satusPortantes ? const Center(child: CircularProgressIndicator( strokeWidth: 10, color: Colors.lightGreen,),) 
+      body: satusPortantes ? const Center(child: CircularProgressIndicator( strokeWidth: 4, color: Colors.lightGreen,),) 
       : VideoScrollableView(videos: videos)
       
     );
