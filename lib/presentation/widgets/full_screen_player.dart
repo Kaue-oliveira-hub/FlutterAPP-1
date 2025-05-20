@@ -1,0 +1,58 @@
+import  'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+
+class FullScreenPlayer extends StatefulWidget{
+  
+  final String videoUrl;
+  final String descriptio;
+ 
+  const FullScreenPlayer({
+    super.key,
+    required this.videoUrl,
+    required this.descriptio,
+    });
+
+  @override
+  State<FullScreenPlayer> createState() => _FullScreenPlayerState();
+}
+
+class _FullScreenPlayerState extends State<FullScreenPlayer> {
+
+late VideoPlayerController controller;
+
+@override
+  void initState() {
+    controller = VideoPlayerController.asset(widget.videoUrl)
+    ..setVolume(0.0)
+    ..setLooping(true)
+    ..play();
+
+    
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: controller.initialize(), 
+      builder:(context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done ){
+          return const Center (
+            child: CircularProgressIndicator(strokeWidth: 4,));
+        }
+        return AspectRatio(
+          aspectRatio: controller.value.aspectRatio,
+          child: VideoPlayer(controller),
+        );
+          
+      },
+      );
+  }
+}
+  
