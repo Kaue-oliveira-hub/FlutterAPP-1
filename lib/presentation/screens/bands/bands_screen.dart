@@ -1,5 +1,7 @@
 import  'package:flutter/material.dart';
 import 'package:flutter_app1master/config/config.dart';
+
+
 class BandsScreen extends StatefulWidget{
   const BandsScreen({super.key});
 
@@ -25,8 +27,12 @@ List<Band> bands =[
       ),
       body: ListView.builder(
         itemCount: bands.length,
-        itemBuilder: (context, i) =>_bandTile(bands[i])
-        
+        itemBuilder: (context, i) =>_bandTile(bands[i])  
+      ),
+ floatingActionButton: FloatingActionButton(
+        onPressed: addNewBand,
+        elevation: 1,
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -40,10 +46,47 @@ List<Band> bands =[
             ),
           ),
           title: Text(band.name),
-          trailing:Text('${band.numerusVotum}', style: const TextStyle(fontFamily: "CuppertinoSystemText", fontSize: 20, fontWeight: FontWeight.bold),
-),
-
-          
-          );
+          trailing:Text('${band.numerusVotum}', style: const TextStyle(fontFamily: "CuppertinoSystemText", fontSize: 20, fontWeight: FontWeight.bold,),
+      ),  
+    );
   }
+  addNewBand(){
+    final TextEditingController textController = TextEditingController();
+
+    showDialog(
+      context: context, 
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('New band name'),
+          content: TextField( controller: textController,),
+          actions: [
+            MaterialButton(
+              elevation: 5,
+              textColor: Colors.blue,
+              child: const Text('Add'),
+              onPressed: () => addCollection(textController.text)
+            )
+          ],
+        );
+      
+      }
+    );
+}
+
+void addCollection( String name){
+  if (name.length > 2 ){
+ bands.add(
+   Band(
+    id: DateTime.now().toString(),
+    name: name,
+    numerusVotum: 0,
+   )
+ );
+}
+  Navigator.pop(context);
+  setState(() {
+    
+  });
+}
+
 }
