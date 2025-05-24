@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import  'package:flutter/material.dart';
 import 'package:flutter_app1master/config/config.dart';
 
@@ -37,22 +38,40 @@ List<Band> bands =[
     );
   }
 
-  ListTile _bandTile(Band band) {
-    return ListTile(
-          leading:CircleAvatar(
-            child: Text(
-              band.name.substring(0,2).toUpperCase(),
-              style: TextStyle(fontFamily: "CuppertinoSystemText", fontSize: 17),
+  Widget _bandTile(Band band) {
+    return Dismissible(
+      key: Key(band.id),
+      direction: DismissDirection.startToEnd,
+      onDismissed: ( direction ){
+        bands.remove(band);
+      },
+      child: ListTile(
+            leading:CircleAvatar(
+              child: Text(
+                band.name.substring(0,2).toUpperCase(),
+                style: TextStyle(fontFamily: "CuppertinoSystemText", fontSize: 17),
+              ),
             ),
-          ),
-          title: Text(band.name),
-          trailing:Text('${band.numerusVotum}', style: const TextStyle(fontFamily: "CuppertinoSystemText", fontSize: 20, fontWeight: FontWeight.bold,),
-      ),  
+            title: Text(band.name),
+            trailing: Text(
+              '${band.numerusVotum}',
+              style: const TextStyle(
+                fontFamily: "CuppertinoSystemText",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () {
+              band.numerusVotum++;
+              setState(() {});
+            },
+      ),
     );
   }
   addNewBand(){
     final TextEditingController textController = TextEditingController();
 
+    /*
     showDialog(
       context: context, 
       builder: (context) {
@@ -71,6 +90,37 @@ List<Band> bands =[
       
       }
     );
+    */
+showCupertinoDialog(
+      context: context, 
+      builder: ( BuildContext context ) => CupertinoAlertDialog(
+        title: const Text('New band name'),
+        content:  CupertinoTextField(
+          controller: textController,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark 
+              ? Colors.white 
+              : Colors.black
+            )
+        ),
+        actions: [
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: const Text('Add'),
+            onPressed: () {
+              addCollection(textController.text);
+            }
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            child: const Text('Close'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      )
+    );
+
+
 }
 
 void addCollection( String name){
