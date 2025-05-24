@@ -46,9 +46,28 @@ late VideoPlayerController controller;
           return const Center (
             child: CircularProgressIndicator(strokeWidth: 4,));
         }
-        return AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: VideoPlayer(controller),
+        return GestureDetector(
+         
+          child: AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: Stack(
+              children: [
+                VideoPlayer(controller),
+                Positioned(
+                  left: 20,
+                  bottom: 50,
+                  child: _VideoDescriptio(descriptio: widget.descriptio)
+                )
+              ],
+            )
+          ),
+           onTap: () {
+            if (controller.value.isPlaying) {
+              controller.pause();
+              return;
+            }
+            controller.play();
+          },
         );
           
       },
@@ -56,3 +75,20 @@ late VideoPlayerController controller;
   }
 }
   
+  class _VideoDescriptio extends StatelessWidget {
+
+ final String descriptio;
+const _VideoDescriptio({
+  required this.descriptio
+});
+  
+    @override
+  Widget build(BuildContext context) {
+
+    final magnitudine = MediaQuery.of(context).size;
+  return SizedBox(
+    width: magnitudine.width * 0.6,
+    child: Text(descriptio, maxLines: 2, style: TextStyle(color: Colors.white),),
+    );
+  }
+  }
