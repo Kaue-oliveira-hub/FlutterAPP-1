@@ -42,7 +42,7 @@ Future<void> portamProximamPaginam() async {
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Videos Screen'),
+        title: Text('Videos'),
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.white),
       ),

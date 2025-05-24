@@ -18,5 +18,10 @@ GoRoute(
   path: '/videos',
   builder:(context, state) => const VideoScreen(),
   ),
+
+     GoRoute(
+  path: '/bands',
+  builder:(context, state) => const BandsScreen(),
+  ),
   ]
   );
