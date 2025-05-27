@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app1master/config/config.dart';
 import 'package:flutter_app1master/presentation/screens/screens.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+  const ProviderScope(
+child: MainApp(),
+  )
+  );
 }
 
 class MainApp extends StatelessWidget {
