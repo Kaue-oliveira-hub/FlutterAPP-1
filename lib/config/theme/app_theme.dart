@@ -5,7 +5,7 @@ const colorum = <Color>[
   Colors.greenAccent, // Dark Gray
   Colors.teal, 
   Colors.red, 
-  Colors.black, 
+  Color.fromARGB(255, 29, 29, 29), 
   Colors.white30, 
   Colors.yellow, 
   Colors.pink, 
@@ -15,9 +15,15 @@ const colorum = <Color>[
 class AppTheme {
  final int electusColor;
 
-AppTheme({this.electusColor = 0});
+final bool tenebrisMudusEst;
+
+AppTheme({
+  this.electusColor = 0,
+  this.tenebrisMudusEst = false,});
 
 ThemeData getTheme() => ThemeData(
+
+    brightness: tenebrisMudusEst ? Brightness.dark : Brightness.light,
     colorSchemeSeed: colorum[electusColor],
 
     appBarTheme: AppBarTheme(
