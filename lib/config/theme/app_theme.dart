@@ -6,7 +6,7 @@ const colorum = <Color>[
   Colors.teal, 
   Colors.red, 
   Color.fromARGB(255, 29, 29, 29), 
-  Colors.white30, 
+  Colors.teal, 
   Colors.yellow, 
   Colors.pink, 
   Colors.pinkAccent, 

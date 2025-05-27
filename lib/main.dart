@@ -22,10 +22,12 @@ class MainApp extends ConsumerWidget {
 
      final bool tenebrisModusEst = ref.watch(estTenebrisModusProvider);
 
+     final int electusColor = ref.watch(electusColorProvider);
+
     return  MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme(electusColor:0, tenebrisMudusEst: tenebrisModusEst).getTheme(),
+      theme: AppTheme(electusColor:electusColor , tenebrisMudusEst: tenebrisModusEst).getTheme(),
       
     );
   }

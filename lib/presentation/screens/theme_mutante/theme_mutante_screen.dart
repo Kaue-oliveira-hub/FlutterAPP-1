@@ -26,6 +26,39 @@ class ThemeMutanteScreen extends ConsumerWidget {
          ],
      ),
       
+      body: _ThemeMutanteVisum(),
+
+    );
+  }
+}
+
+class _ThemeMutanteVisum extends ConsumerWidget {
+  const _ThemeMutanteVisum();
+  
+
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final List<Color> colorum = ref.watch( colorumIndexProvider );
+
+  final electusColor = ref.watch( electusColorProvider );
+
+    return ListView.builder(
+      itemCount: colorum.length,
+      itemBuilder: (context, index) {
+        final Color color = colorum[index];
+        return RadioListTile(
+          title: Text('Este color es', style: TextStyle(color:color),),
+          subtitle: Text('${ color.hashCode }'),
+          activeColor: color,
+         value: index,
+         groupValue: electusColor, 
+         onChanged:(value){
+          ref.read(electusColorProvider.notifier).state = index;
+         },
+        );
+      },
     );
   }
 }
