@@ -1,49 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import  'package:flutter/material.dart';
 import 'package:flutter_app1master/config/config.dart';
+import 'package:flutter_app1master/presentation/providers/provider_socket.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-class BandsScreen extends StatefulWidget{
+
+class BandsScreen extends ConsumerWidget {
+  
   const BandsScreen({super.key});
 
   @override
-  State<BandsScreen> createState() => _BandsScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
-class _BandsScreenState extends State<BandsScreen> {
+    final bands = ref.watch(bandsProvider);
 
-List<Band> bands =[
-  Band(id: '1', name: 'BB. King', numerusVotum: 4),
-  Band(id: '2', name: 'Phillip Glass', numerusVotum: 1),
-  Band(id: '3', name: 'Camarón', numerusVotum: 6),
-  Band(id: '4', name: 'Zelia Duncan', numerusVotum: 2),
-
-];
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bandas'),
       ),
       body: ListView.builder(
         itemCount: bands.length,
-        itemBuilder: (context, i) =>_bandTile(bands[i])  
+        itemBuilder: (context, i) =>_bandTile(context, ref, bands[i])  
       ),
  floatingActionButton: FloatingActionButton(
-        onPressed: addNewBand,
+        onPressed: () => addNewBand(context, ref),
         elevation: 1,
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _bandTile(Band band) {
+  Widget _bandTile(BuildContext context, WidgetRef ref, Band band) {
     return Dismissible(
       key: Key(band.id),
       direction: DismissDirection.startToEnd,
       onDismissed: ( direction ){
-        bands.remove(band);
+        ref.read(bandsProvider.notifier).removeBand(band);
       },
       child: ListTile(
             leading:CircleAvatar(
@@ -63,12 +56,12 @@ List<Band> bands =[
             ),
             onTap: () {
               band.numerusVotum++;
-              setState(() {});
+              ref.read(bandsProvider.notifier).addVote(band);
             },
       ),
     );
   }
-  addNewBand(){
+  addNewBand(BuildContext context, WidgetRef ref){
     final TextEditingController textController = TextEditingController();
 
     /*
@@ -108,7 +101,7 @@ showCupertinoDialog(
             isDefaultAction: true,
             child: const Text('Add'),
             onPressed: () {
-              addCollection(textController.text);
+              addCollection(context, ref, textController.text);
             }
           ),
           CupertinoDialogAction(
@@ -123,9 +116,9 @@ showCupertinoDialog(
 
 }
 
-void addCollection( String name){
+void addCollection( BuildContext context, WidgetRef ref, String name){
   if (name.length > 2 ){
- bands.add(
+    ref.read(bandsProvider.notifier).addNewBand(
    Band(
     id: DateTime.now().toString(),
     name: name,
@@ -134,9 +127,7 @@ void addCollection( String name){
  );
 }
   Navigator.pop(context);
-  setState(() {
-    
-  });
+
 }
 
 }
