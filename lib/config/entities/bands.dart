@@ -17,4 +17,16 @@ factory Band.fromMap(Map<String, dynamic> obj) => Band(
    numerusVotum: obj['numerusVotum'] 
 );
 
+
+Band copyWith({
+  String? id,
+  String? name,
+  int? numerusVotum
+}){
+   return Band(
+   id: id?? this.id,
+   name: name ?? this.name,
+   numerusVotum: numerusVotum ?? this.numerusVotum,
+   );
+}
 }
