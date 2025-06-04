@@ -25,8 +25,8 @@ GoRoute(
   ),
 
       GoRoute(
-  path: '/theme-mutante',
-  builder:(context, state) => const ThemeMutanteScreen(),
+  path: '/sensors',
+  builder:(context, state) => const SensoresScreen(),
   ),
   ]
   );
