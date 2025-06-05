@@ -1,6 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import  'package:flutter/material.dart';
-import 'package:flutter_app1master/presentation/providers/sensores/gyroscope_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../providers/providers.dart';
 
 
 class SensoresScreen extends StatefulWidget{
@@ -13,19 +16,70 @@ class SensoresScreen extends StatefulWidget{
 
     class _SensoresScreenState extends State <SensoresScreen>{
 
+        final PageController paginaVisumController = PageController();
+
+        bool finemPervenit = false;
+
+        @override
+  void initState() {
+      paginaVisumController.addListener((){
+          
+          final pagina = paginaVisumController.page ?? 0;
+
+          if( !finemPervenit && pagina >= 3 - 1.5) {
+            setState((){
+              finemPervenit = true;
+            });
+          }
+
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    paginaVisumController.dispose();
+    super.dispose();
+  }
+
+
         @override
         Widget build(BuildContext context){
           return Scaffold(
           appBar: AppBar(
             title: const Text('datos de los sensores'),
+            automaticallyImplyLeading: false,
           ),
-          body: PageView(
-            physics: const BouncingScrollPhysics(),
-            children:[
-              Gyroscope(),
-              Accelelometrum(),
-              Magnetometrum(),
-            ]
+          body: Stack(
+           children: [
+            PageView(
+              controller: paginaVisumController,
+              physics: const BouncingScrollPhysics(),
+              children:[
+                Gyroscope(),
+                Accelerometrum(),
+                Magnetometrum(),
+              ],
+            ),
+
+              finemPervenit 
+              ?  Positioned(
+                  bottom: 30,
+                  right: 30,
+                  child: FadeInRight(
+                    from: 250,
+                    delay: Duration(milliseconds: 100),
+                    child: FilledButton(
+                    onPressed: () => context.pop(), 
+                    child: Text('Volver', style: TextStyle(fontSize: 18),)
+                    ),
+                  )
+                )
+
+              : const SizedBox()
+             
+
+             ],
           ),
         );
       }
@@ -69,72 +123,76 @@ class SensoresScreen extends StatefulWidget{
 
 
 
+class Accelerometrum extends ConsumerWidget {
+  const Accelerometrum({super.key});
 
-    class Accelelometrum extends StatelessWidget{
- const Accelelometrum({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
 
+     final accelerometrum$ = ref.watch( accelerometrumGravitasProvider );
+    //final accelerometrum$ = ref.watch( accelerometrumUserProvider );
 
-        @override
-        Widget build(BuildContext context){
-          return Scaffold(
-          body: Column(
-            children:[
-              SizedBox(height: 30,),
-              Center(
-                child: Text('Acelerometro', style: TextStyle(fontSize: 42, color: Colors.grey ),),
-              ),
-               SizedBox(height: 150,),
-              Center(
-                child: Text(
-'''
-x: 10
-y: 35
-z:97
-''',
-        style: TextStyle(fontSize: 60, color: Colors.pinkAccent),
-
-                ),    
-              ),
-          ]
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(height: 30,),
+          Center(
+            child:(
+              Text('Acelerómetro', style: TextStyle(fontSize: 43, color: Colors.grey))
+            )
           ),
-       
-        );
-      }
-    }
-
-
-
-    class Magnetometrum extends StatelessWidget{
- const Magnetometrum({super.key});
-
-
-        @override
-        Widget build(BuildContext context){
-          return Scaffold(
-          body: Column(
-            children:[
-              SizedBox(height: 30,),
-              Center(
-                child: Text('Magnetometro', style: TextStyle(fontSize: 42, color: Colors.grey ),),
-              ),
-               SizedBox(height: 150,),
-              Center(
-                child: Text(
-'''
-x: 10
-y: 35
-z:97
-''',
-        style: TextStyle(fontSize: 60, color: Colors.yellow),
-
-                ),    
-              ),
-          ]
+          SizedBox(height: 150,),
+          Center( 
+            child: accelerometrum$.when(
+              data: (value) => Text(
+                value.toString(),
+                style: TextStyle(fontSize: 40, color: Colors.grey),
+              ), 
+              error: (error, stackTrace) => Text('$error'), 
+              loading: () => const CircularProgressIndicator()
+            ),
           ),
-       
-        );
-      }
-    }
+        ],
+      )
+    );
+  }
+}
+
+
+
+class Magnetometrum extends ConsumerWidget {
+  const Magnetometrum({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final magnetometrum$ = ref.watch( magnetometrumProvider );
+
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(height: 30,),
+          Center(
+            child:(
+              Text('Magnetómetro', style: TextStyle(fontSize: 43, color: Colors.grey))
+            )
+          ),
+          SizedBox(height: 150,),
+          Center(
+            child: magnetometrum$.when(
+              data: (value) => Text(
+                value.x.toString(),
+                style: TextStyle(fontSize: 40, color: Colors.grey),
+              ), 
+              error: (error, stackTrace) => Text('$error'), 
+              loading: () => const CircularProgressIndicator()
+            ),
+          ),
+        ],
+      )
+    );
+  }
+}
 
 
     
