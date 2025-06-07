@@ -1,4 +1,6 @@
 import  'package:flutter/material.dart';
+import 'package:flutter_app1master/presentation/providers/pokemon_index_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -14,14 +16,14 @@ class PokemonsScreen extends StatelessWidget{
 }
 
 
-class PokemonsVisum extends StatefulWidget{
+class PokemonsVisum extends ConsumerStatefulWidget{
   const PokemonsVisum({super.key});
 
 @override
-State<PokemonsVisum> createState() => _PokemonsVisumState();
+PokemonsVisumState createState() => PokemonsVisumState();
 }
 
-class _PokemonsVisumState extends State<PokemonsVisum> {
+class PokemonsVisumState extends ConsumerState<PokemonsVisum> {
 
 final scrollController = ScrollController();
 
@@ -41,15 +43,28 @@ final scrollController = ScrollController();
       ],
     );
   }
+
+Future vadeProximamPagina() async{
+
+  ref.read(pokemonsIdsProvider.notifier).update((state) => [
+    ...state,
+    ...List.generate(30,(index) =>state.length + index + 1)
+  ]);
+}
+
+
 }
 
 
 
-class _PokemonGrid extends StatelessWidget{
+class _PokemonGrid extends ConsumerWidget{
   const _PokemonGrid();
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context, WidgetRef ref){
+
+final pokemonIds = ref.watch(pokemonsIdsProvider);
+
     return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
@@ -62,12 +77,13 @@ class _PokemonGrid extends StatelessWidget{
               context.push('/request/${ index + 1}');
 
           },
-          child: Container(
-            color: Colors.blue, 
-          child: Center(child: Text('${index + 1}'))
-          ),
+          child: Image.network(
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
+            fit: BoxFit.contain,
+          )
         );
       },
+      itemCount: pokemonIds.length,
       
     );
   }

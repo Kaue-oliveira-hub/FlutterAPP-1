@@ -7,4 +7,4 @@ export './sensores/sensores_screen.dart';
 export './sensores/gyroscope_sphere_screen.dart';
 export './locus/locus_screen.dart';
 export './pokemons/pokemons_screen.dart';
-export './pokemons/pokemon_screen.dart'
+export './pokemons/pokemon_screen.dart';
