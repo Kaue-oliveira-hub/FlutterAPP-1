@@ -28,5 +28,11 @@ GoRoute(
   path: '/sensors',
   builder:(context, state) => const SensoresScreen(),
   ),
+
+        GoRoute(
+  path: '/gyroscope',
+  builder:(context, state) => const GyroscopeSphereScreen(),
+  ),
+  
   ]
   );
