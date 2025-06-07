@@ -21,7 +21,7 @@ import '../../providers/sensores/gyroscope_provider.dart';
             ),
             body: SizedBox.expand(
               child: gyroscope$.when(
-                data: (value) => MovereSphera(x: value.x, y: value.y)
+                data: (value) => MovereSphera(x: value.x, y: value.y),
                 error: (error, stackTrace) => Text('$error'),
                 loading:() => const CircularProgressIndicator()
                 ),

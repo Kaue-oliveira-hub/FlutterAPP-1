@@ -4,4 +4,4 @@ export './provider_socket.dart';
 export './sensores/gyroscope_provider.dart';
 export './sensores/accelerometrum_provider.dart';
 export './sensores/magnetometrum_provider.dart';
-
+export './sensores/locus_provider.dart';

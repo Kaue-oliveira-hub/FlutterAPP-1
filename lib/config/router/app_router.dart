@@ -33,6 +33,9 @@ GoRoute(
   path: '/gyroscope',
   builder:(context, state) => const GyroscopeSphereScreen(),
   ),
-  
+          GoRoute(
+  path: '/location',
+  builder:(context, state) => const LocusScreen(),
+  ),
   ]
   );
