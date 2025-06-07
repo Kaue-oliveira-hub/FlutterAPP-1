@@ -5,3 +5,4 @@ export './sensores/gyroscope_provider.dart';
 export './sensores/accelerometrum_provider.dart';
 export './sensores/magnetometrum_provider.dart';
 export './sensores/locus_provider.dart';
+export './sensores/locus.vigilia_provider.dart';

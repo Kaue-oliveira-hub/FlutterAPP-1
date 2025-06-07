@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
 
-final userLocusProvider =  FutureProvider.autoDispose<(double, double)>((ref) async{
+final vigiliaLocusProvider =  StreamProvider.autoDispose<(double, double)>((ref) async*{
 
 
 
@@ -33,8 +33,9 @@ final userLocusProvider =  FutureProvider.autoDispose<(double, double)>((ref) as
       'Location permissions are permanently denied, we cannot request permissions.';
   } 
 
-   final locus = await Geolocator.getCurrentPosition();
-      
-      return (locus.latitude, locus.longitude);
+  
+      await for( final location in Geolocator.getPositionStream()){
+        yield (location.latitude, location.longitude);
 
+      }
 });
