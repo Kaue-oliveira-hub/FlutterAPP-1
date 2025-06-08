@@ -6,3 +6,4 @@ export './entities/video_post.dart';
 export './data/local_video_post.dart';
 export './helpers/intelligibilis_forma.dart';
 export './entities/bands.dart';
+export './entities/pokemon.dart';
