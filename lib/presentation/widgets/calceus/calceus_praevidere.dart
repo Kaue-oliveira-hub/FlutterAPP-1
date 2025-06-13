@@ -1,32 +1,47 @@
 import  'package:flutter/material.dart';
+import 'package:flutter_app1master/presentation/widgets/calceus/button_aurantius.dart';
+import 'package:go_router/go_router.dart';
 
 
 
 class CalceusPraevire extends StatelessWidget{
 
-  const CalceusPraevire ({super.key});
+  final bool screenCompletaEst;
+
+  const CalceusPraevire ({
+    super.key,
+    this.screenCompletaEst = false
+    });
 
 
   @override
  Widget build(BuildContext context){
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-      
-      child: Container(
-        width: double.infinity, 
-        height: 440,
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 207, 83),
-          borderRadius:  BorderRadius.circular(50)
-        ),
-          child: Column(
-            children: [
-              _CalceusCumUmbra(),
-              _CalceusMensurae(),
-            ],
-          )
-        ),
+    return GestureDetector(
+      onTap: (){
+        context.push('/shoes-desc');
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: screenCompletaEst ? 5 : 30,
+           vertical:screenCompletaEst ? 5 : 0
+           ),
+        
+        child: Container(
+          width: double.infinity, 
+          height: screenCompletaEst ? 410 : 440,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 255, 207, 83),
+            borderRadius:  BorderRadius.circular(50)
+          ),
+            child: Column(
+              children: [
+                _CalceusCumUmbra(),
+               if( !screenCompletaEst) const _CalceusMensurae(),
+              ],
+            )
+          ),
+      ),
     );
  }
 }
@@ -139,3 +154,5 @@ class _HaecMensura extends StatelessWidget {
     );
   }
 } 
+
+

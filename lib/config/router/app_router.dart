@@ -63,5 +63,9 @@ GoRoute(
   path: '/shoes',
   builder:(context, state) => const CalceusScreen(),
   ),
+          GoRoute(
+  path: '/shoes-desc',
+  builder:(context, state) => const CalceusDescScreen(),
+  ),
   ]
   );
