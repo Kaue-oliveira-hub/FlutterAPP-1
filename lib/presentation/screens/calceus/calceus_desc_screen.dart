@@ -20,7 +20,11 @@ class CalceusDescScreen extends StatelessWidget{
         children: [
           Stack(
             children: [
-              CalceusPraevire(screenCompletaEst: true,),
+
+              const Hero(
+                tag: 'zapato-1',
+                child: CalceusPraevire(screenCompletaEst: true,)
+              ),
               Positioned(
                 top: 60,
                 child: FloatingActionButton(
@@ -105,18 +109,18 @@ class _ColoresEtAlterButton extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 198, 214, 66)),
+                  child: _ActionButtonColor(color: Color.fromARGB(255, 198, 214, 66), index: 4,),
                 ),
                  Positioned(
                   left: 60,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 255, 173, 41)),
+                  child: _ActionButtonColor(color: Color.fromARGB(255, 255, 173, 41), index: 3,),
                 ),
                   Positioned(
                   left: 30,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 32, 153, 241)),
+                  child: _ActionButtonColor(color: Color.fromARGB(255, 32, 153, 241), index: 2,),
                 ),
                 
-                  _ActionButtonColor(color: Color.fromARGB(255, 54, 77, 86)),
+                  _ActionButtonColor(color: Color.fromARGB(255, 54, 77, 86), index: 1,),
                 
               ],
             )
@@ -139,17 +143,22 @@ class _ColoresEtAlterButton extends StatelessWidget {
 class _ActionButtonColor extends StatelessWidget {
 
   final Color color;
-  //final int index;
+  final int index;
   const _ActionButtonColor({
-    required this.color
+    required this.color,
+    required this.index
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 45,
-      height: 45,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    return FadeInLeft(
+      delay: Duration(milliseconds: index * 100),
+      duration: const Duration(milliseconds: 300),
+      child: Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
     );
 
   }
