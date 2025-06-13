@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import  'package:flutter/material.dart';
+import 'package:flutter_app1master/presentation/providers/providers.dart';
 import 'package:flutter_app1master/presentation/widgets/calceus/calceus_praevidere.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../widgets/calceus/button_aurantius.dart';
@@ -109,18 +111,33 @@ class _ColoresEtAlterButton extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 198, 214, 66), index: 4,),
+                  child: _ActionButtonColor(
+                    color: Color.fromARGB(255, 198, 214, 66), 
+                    index: 4,
+                    urlImago: 'assets/imagines/verde.png',),
                 ),
                  Positioned(
                   left: 60,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 255, 173, 41), index: 3,),
+                  child: _ActionButtonColor(
+                    color: Color.fromARGB(255, 255, 173, 41),
+                     index: 3,
+                     urlImago: 'assets/imagines/verde.png',
+                     ),
                 ),
                   Positioned(
                   left: 30,
-                  child: _ActionButtonColor(color: Color.fromARGB(255, 32, 153, 241), index: 2,),
+                  child: _ActionButtonColor(
+                    color: Color.fromARGB(255, 32, 153, 241),
+                     index: 2,
+                     urlImago: 'assets/imagines/azul.png',
+                     ),
                 ),
                 
-                  _ActionButtonColor(color: Color.fromARGB(255, 54, 77, 86), index: 1,),
+                  _ActionButtonColor(
+                    color: Color.fromARGB(255, 54, 77, 86),
+                     index: 1,
+                     urlImago: 'assets/imagines/negro.png',
+                     ),
                 
               ],
             )
@@ -140,24 +157,32 @@ class _ColoresEtAlterButton extends StatelessWidget {
   }
 }
 
-class _ActionButtonColor extends StatelessWidget {
+class _ActionButtonColor extends ConsumerWidget {
 
   final Color color;
   final int index;
+  final String urlImago;
+
   const _ActionButtonColor({
     required this.color,
-    required this.index
+    required this.index,
+    required this.urlImago,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FadeInLeft(
       delay: Duration(milliseconds: index * 100),
       duration: const Duration(milliseconds: 300),
-      child: Container(
-        width: 45,
-        height: 45,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      child: GestureDetector(
+        onTap: (){
+          ref.read(calceusProvider.notifier).ponereAssetImago(urlImago);
+        },
+        child: Container(
+          width: 45,
+          height: 45,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
       ),
     );
 
