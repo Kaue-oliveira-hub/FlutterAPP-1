@@ -30,13 +30,15 @@ class CalceusScreen extends StatelessWidget{
                        titulus: 'Nike air Max 720',
                       descriptio: "The Nike Air Max 720 goes bigger than ever before with Nike's taller Air unit yet, offering more air underfoot for unimaginable, all-day comfort. Has Air Max gone too far? We hope so.", 
                      ),
-                     
-                  ]
-                             ),
-              )
-            
-      ),
-        ],)
+                    ] 
+                 ),
+              )         
+           ),
+
+            const AdCarrumButtom(pretium: 180.0)
+
+        ]
+        ,)
       );
  }
 }
