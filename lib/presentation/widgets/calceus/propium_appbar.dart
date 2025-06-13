@@ -1,4 +1,5 @@
 import  'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PropiumAppbar extends StatelessWidget {
   
@@ -16,14 +17,27 @@ class PropiumAppbar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Container(
-          margin: const EdgeInsets.only(top:30),
+          margin: const EdgeInsets.only(top:15),
           width: double.infinity,
           color: Colors.lightGreenAccent,
           child: Row(
             children: [
-              Text(
-              textus, 
-              style: TextStyle(fontFamily: "CuppertinoSystemDisplay", fontSize: 30, fontWeight: FontWeight.w700),
+              FloatingActionButton(
+                onPressed: (){
+                  context.pop();
+                },
+                elevation: 0,
+                highlightElevation: 0,
+                hoverElevation: 0,
+                backgroundColor: Colors.transparent,
+                child: const Icon(Icons.chevron_left, size: 48,),
+                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                textus, 
+                style: TextStyle(fontFamily: "CuppertinoSystemDisplay", fontSize: 30, fontWeight: FontWeight.w700),
+                ),
               ),
               const Spacer(),
               const Icon(Icons.search, size: 30,)
