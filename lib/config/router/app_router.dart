@@ -43,6 +43,7 @@ GoRoute(
   path: '/request',
   builder:(context, state) => const PokemonsScreen(),
   routes:[
+
     GoRoute(
       path: ':id',
       builder: (context, state){
@@ -53,6 +54,14 @@ GoRoute(
   ]
   ),
 
+  //       GoRoute(
+  // path: '/animated',
+  // builder:(context, state) => const AnimateScreen(),
+  // ),
 
+          GoRoute(
+  path: '/shoes',
+  builder:(context, state) => const CalceusScreen(),
+  ),
   ]
   );
