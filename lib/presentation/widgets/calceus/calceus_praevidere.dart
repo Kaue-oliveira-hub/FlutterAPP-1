@@ -22,7 +22,8 @@ class CalceusPraevire extends StatelessWidget{
         ),
           child: Column(
             children: [
-              _CalceusCumUmbra()
+              _CalceusCumUmbra(),
+              _CalceusMensurae(),
             ],
           )
         ),
@@ -76,6 +77,65 @@ class _UmbraProjecta extends StatelessWidget{
           ),
         ),
       );
-
  }
 }
+class _CalceusMensurae extends StatelessWidget{
+
+  const _CalceusMensurae ();
+
+
+  @override
+ Widget build(BuildContext context){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _HaecMensura(numerus: 7,),
+          _HaecMensura(numerus: 7.5,),
+          _HaecMensura(numerus: 8,),
+          _HaecMensura(numerus: 8.5,),
+          _HaecMensura(numerus: 9,),
+          _HaecMensura(numerus: 9.5,)
+        ],
+        
+        ),
+    );
+ }
+ }
+
+
+class _HaecMensura extends StatelessWidget {
+
+  final double numerus;
+  
+  const _HaecMensura({
+
+    required this.numerus
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      width: 45,
+      height: 45,
+      
+      decoration: BoxDecoration(
+        color: numerus == 9 ?  Color.fromARGB(255, 241, 162, 58) : Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+          color: numerus == 9 ? Color.fromARGB(255, 226, 106, 42) : Color.fromARGB(255, 241, 162, 58),
+          blurRadius: 10,
+          offset: Offset(0, 5),
+          )
+        ]
+      ),
+      child:  Text(
+        '$numerus'.replaceAll(".0", ""),
+         style:TextStyle(color: numerus == 9 ? Colors.white : Color.fromARGB(255, 241, 162, 58)),),
+    
+    );
+  }
+} 
